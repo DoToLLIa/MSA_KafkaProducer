@@ -1,10 +1,10 @@
-FROM dotollia/msa_basedockerimage:0.2
-ARG PROJECT_VERSION=0.2
-RUN mkdir /MSA_BankAccountGenerator
-COPY . /MSA_BankAccountGenerator
-RUN cd /MSA_BankAccountGenerator && \
+FROM dotollia/msa_basedockerimage:0.3
+ARG PROJECT_VERSION=0.3
+RUN mkdir /MSA_KafkaProducer
+COPY . /MSA_KafkaProducer
+RUN cd /MSA_KafkaProducer && \
     mvn clean package &&  \
-    mv /MSA_BankAccountGenerator/target/BankAccountGenerator-${PROJECT_VERSION}.jar /BankAccountGenerator.jar && \
-    rm -r /MSA_BankAccountGenerator
+    mv /MSA_KafkaProducer/target/KafkaProducer-${PROJECT_VERSION}.jar /KafkaProducer.jar && \
+    rm -r /MSA_KafkaProducer
 EXPOSE 8080
-CMD ["java", "-jar", "/BankAccountGenerator.jar"]
+CMD ["java", "-jar", "/KafkaProducer.jar"]
