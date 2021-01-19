@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 public class KafkaProducerController {
 
-    private static final String HOST = "10.20.30.10";
+    private static final String HOST = "10.20.30.15";
     private static final String PORT = "8080";
     private static final String PATH = "";
 
