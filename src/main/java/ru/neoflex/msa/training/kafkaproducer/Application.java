@@ -9,7 +9,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class Application {
 
-    @KafkaListener(topics = "bankAccountTopic")
+    @KafkaListener(groupId = "app.1", topics = "bankAccountTopic")
     public void msgListener(String msg) {
         System.out.println("Listener: " + msg);
     }
