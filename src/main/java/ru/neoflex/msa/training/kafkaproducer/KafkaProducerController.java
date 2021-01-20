@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -16,7 +17,7 @@ public class KafkaProducerController {
     private static final String PATH = "";
 
     @Autowired
-    private KafkaTemplate<String, BankAccount> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping
     public void sendToTopic() {
@@ -24,6 +25,6 @@ public class KafkaProducerController {
         BankAccount bankAccount = restTemplate.getForObject("http://" + HOST + ":" + PORT + PATH  + "/", BankAccount.class);
         System.out.println(bankAccount);
         String msgId = UUID.randomUUID().toString();
-        kafkaTemplate.send("bankAccountTopic", msgId, bankAccount);
+        kafkaTemplate.send("bankAccountTopic", msgId, Optional.ofNullable(bankAccount).map(BankAccount::toString).orElse("null"));
     }
 }
