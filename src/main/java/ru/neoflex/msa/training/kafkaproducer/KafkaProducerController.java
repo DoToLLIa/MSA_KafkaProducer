@@ -17,7 +17,7 @@ public class KafkaProducerController {
     private static final String PATH = "";
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, BankAccount> kafkaTemplate;
 
     @GetMapping
     public void sendToTopic() {
@@ -25,6 +25,6 @@ public class KafkaProducerController {
         BankAccount bankAccount = restTemplate.getForObject("http://" + HOST + ":" + PORT + PATH  + "/", BankAccount.class);
         System.out.println(bankAccount);
         String msgId = UUID.randomUUID().toString();
-        kafkaTemplate.send("bankAccountTopic", msgId, Optional.ofNullable(bankAccount).map(BankAccount::toString).orElse("null"));
+        kafkaTemplate.send("bankAccountTopic", msgId, bankAccount);
     }
 }
